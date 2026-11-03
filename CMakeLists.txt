@@ -72,10 +72,6 @@ install(
   RUNTIME DESTINATION bin
 )
 
-# Export old-style CMake variables
-ament_export_include_directories("include/${PROJECT_NAME}")
-ament_export_libraries(${PROJECT_NAME}_library)
-
 # Export modern CMake targets
 ament_export_targets(${PROJECT_NAME}_library)
 
@@ -90,9 +86,6 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 
   find_package(performance_test_fixture REQUIRED)
-  # Give cppcheck hints about macro definitions coming from outside this package
-  get_target_property(ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS performance_test_fixture::performance_test_fixture
-    INTERFACE_INCLUDE_DIRECTORIES)
 
   ament_add_gmock(test_graph_cache test/test_graph_cache.cpp)
   if(TARGET test_graph_cache)
